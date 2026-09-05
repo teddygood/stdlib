@@ -260,6 +260,8 @@ Compiles Node.js native [add-ons][node-js-add-ons].
 $ make install-node-addons
 ```
 
+`SIMD_BACKEND=highway` enables Highway for supported add-ons and requires a Highway installation and a C++17-capable compiler. Leaving `SIMD_BACKEND` unset preserves the default build.
+
 #### clean-node-addons
 
 Removes Node.js native [add-ons][node-js-add-ons].

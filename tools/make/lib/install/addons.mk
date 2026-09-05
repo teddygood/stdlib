@@ -26,6 +26,14 @@ NODE_GYP ?= $(BIN_DIR)/node-gyp
 # Define command-line options when invoking node-gyp.
 NODE_GYP_FLAGS ?=
 
+# Define GYP variable definitions when building native add-ons with Highway:
+node_gyp_highway_defines :=
+ifeq ($(SIMD_BACKEND), highway)
+	node_gyp_highway_defines := -- \
+		-Dsimd=$(SIMD_BACKEND) \
+		-Dhighway_include=$(DEPS_HIGHWAY_INCLUDE)
+endif
+
 # Define GYP "defines":
 ifndef NODE_GYP_DEFINES
 	NODE_GYP_DEFINES := fortran_compiler=$(FC)
@@ -80,7 +88,7 @@ ifeq ($(FAIL_FAST), true)
 			MAKEFLAGS= \
 			NODE_PATH="$(NODE_PATH)" \
 			GYP_DEFINES="$(NODE_GYP_DEFINES)" \
-			$(NODE_GYP) $(NODE_GYP_FLAGS) rebuild \
+			$(NODE_GYP) $(NODE_GYP_FLAGS) rebuild $(node_gyp_highway_defines) \
 		|| { echo "Error: failed to build add-on: $$pkg"; exit 1; } \
 	done
 else
@@ -94,7 +102,7 @@ else
 			MAKEFLAGS= \
 			NODE_PATH="$(NODE_PATH)" \
 			GYP_DEFINES="$(NODE_GYP_DEFINES)" \
-			$(NODE_GYP) $(NODE_GYP_FLAGS) rebuild \
+			$(NODE_GYP) $(NODE_GYP_FLAGS) rebuild $(node_gyp_highway_defines) \
 		|| { echo "Error: failed to build add-on: $$pkg"; exit 0; } \
 	done
 endif
