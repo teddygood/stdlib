@@ -57,6 +57,9 @@ $ make wasm
 The command supports the following environment variables:
 
 -   **PKGS_WASM_PATTERN**: package pattern; e.g., `blas/base/daxpy-wasm`.
+-   **SIMD_BACKEND**: optional SIMD backend for supported packages; `highway` or empty (default).
+
+Highway builds require WebAssembly SIMD support and do not automatically fall back to a scalar module. Clean the affected package before rebuilding with different compiler flags.
 
 If unable to compile WebAssemby artifacts, the command prints an error message and tries compiling WebAssembly artifacts for the next package.
 

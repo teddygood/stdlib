@@ -154,7 +154,7 @@ SHELL_LINTER ?= shellcheck
 # Define the linter to use when linting C files:
 C_LINTER ?= cppcheck
 
-# Define the SIMD backend to use when building supported native add-ons:
+# Define the SIMD backend to use when building supported native add-ons and WebAssembly artifacts:
 SIMD_BACKEND ?=
 
 # Define the linter to use when linting Git commit messages:
